@@ -1,0 +1,479 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body_block %}
+
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3 col-md-4 pd-left-none no-pd">
+								<div class="main-left-sidebar no-margin">
+									<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+													<img src="{% static 'images/resources/pf-icon1.png' %}" alt="">
+												</div>
+											</div><!--username-dt end-->
+											<div class="user-specs">
+												<h3>{{ user_name }}</h3>
+
+{#                                                <h3>Connected:<a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/"target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></h3>#}
+{##}
+{#                        <form method="post" action="{% url 'social:disconnect' 'twitter' %}">#}
+{#                        {% csrf_token %}#}
+{#                        <button type="submit">Disconnect from Twitter</button>#}
+{#                        </form>#}
+{#                        #}
+{#                        <button type="button" disabled>Disconnect from Twitter</button>#}
+{#                        {% endif %}#}
+{##}
+{##}
+{#												<span>CRACKED GATE 2019 AIR-1</span>#}
+											</div>
+										</div><!--user-profile end-->
+										<ul class="user-fw-status">
+											<li>
+												<a href="{% url 'profiles:FollowingView' %}" title="">
+													<h4>Following</h4>
+													<span>{{ following }}</span>
+												</a>
+											</li>
+											<li>
+												<a href="{% url 'profiles:FollowersView' %}" title="">
+													<h4>Followers</h4>
+													<span>{{ follower }}</span>
+												</a>
+											</li>
+											<li>
+												<a href="{% url 'my_profile_feed:my_profile_feed' %}" title="">View Profile</a>
+											</li>
+										</ul>
+									</div><!--user-data end-->
+									<div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>Suggestions</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s1.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Sooraj Mishra</h4>
+													<span>Graphic Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s2.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Vivek Yadav</h4>
+													<span>PHP Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s3.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Sunil Tiwari</h4>
+													<span>Wordpress Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s4.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Saransh Gupta</h4>
+													<span>C & C++ Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s5.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Rishabh Jaiswal</h4>
+													<span>Graphic Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s6.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Saransh Gupta</h4>
+													<span>PHP Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="view-more">
+												<a href="{% url 'profiles:profiles' %}" title="">View More</a>
+											</div>
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+									<!--tags-sec end-->
+								</div><!--main-left-sidebar end-->
+							</div>
+							<div class="col-lg-6 col-md-8 no-pd">
+								<div class="main-ws-sec">
+
+
+                                    <div class="post-topbar">
+																		{% if allnotifications %}
+																		{% for notification in allnotifications %}
+										<form action="{% url 'index:deletenotification' %}" method="post">
+											{% csrf_token %}
+											<div class="usy-dt">
+														<img src="{% static 'images/resources/us-pic.png' %}" alt="">
+														<div class="usy-name">
+															<a href="http://127.0.0.1:8000/my_profile_feed/customViewProfile/?profile_user_email={{ notification.author }}"><h3>@{{ notification.author }}</h3></a>
+															<span><img src="{% static 'images/clock.png' %}" alt="">{{ notification.created_on }}</span>
+														<a href="http://127.0.0.1:8000/index/post_comments/?title={{ notification.post_title }}&author={{ notification.post_author }}"><p>{{ notification.text }}</p></a>
+														<input type="submit" name="delete" value="Delete">
+														<hr>
+                                                        </div>
+												<input type="hidden" name="noti_author" value="{{ notification.author }}">
+												<input type="hidden" name="noti_text" value="{{ notification.text }}">
+												<input type="hidden" name="noti_index" value="{{ forloop.counter }}">
+												<input type="hidden" name="noti_created_on" value="{{ notification.created_on }}">
+
+
+                                    </div><!--post-topbar end-->
+
+										</form>
+                                     <br>
+
+
+                                    {% endfor %}
+																		{% else %}
+																		<h3>No notifications for you...</h3>
+																		{% endif %}
+
+                                    </div>
+
+
+								</div><!--main-ws-sec end-->
+							</div>
+							<div class="col-lg-3 pd-right-none no-pd">
+								<div class="right-sidebar">
+									<div class="widget widget-about">
+<!--										<img src="images/wd-logo.png" alt="">-->
+										<h3 style="color: red; font-size: 150%">eCOSystem</h3>
+										<span>Ping your growth across your networks</span>
+										<div class="sign_link">
+											<h3><a href="#" title="">Sign up</a></h3>
+											<a href="#" title="">Learn More</a>
+										</div>
+									</div><!--widget-about end-->
+									<div class="widget widget-jobs">
+										<div class="sd-title">
+											<h3>Top Jobs</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div>
+										<div class="jobs-list">
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Full Stack Developer</h3>
+													<p>Company: Flipkart</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 50k/month</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior UI / UX Designer</h3>
+													<p>Company: Amazon</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 70k/month</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Assistant Engg.</h3>
+													<p>QA InfoTech</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 30k/month</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior PHP Designer</h3>
+													<p>Company: Facebook</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 80k/month</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>DevOPS</h3>
+													<p>Company: To The New Digital</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 25k/month</span>
+												</div>
+											</div><!--job-info end-->
+										</div><!--jobs-list end-->
+									</div><!--widget-jobs end-->
+									<div class="widget widget-jobs">
+										<div class="sd-title">
+											<h3>Most Viewed This Week</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div>
+										<div class="jobs-list">
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior PHP Designer</h3>
+													<p>Company: Facebook</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 80k/month</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior UI / UX Designer</h3>
+													<p>Company: Amazon</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 70k/month</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Full Stack Developer</h3>
+													<p>Company: Flipkart</p>
+												</div>
+												<div class="hr-rate">
+													<span>INR 50k/month</span>
+												</div>
+											</div><!--job-info end-->
+										</div><!--jobs-list end-->
+									</div><!--widget-jobs end-->
+									<div class="widget suggestions full-width">
+										<div class="sd-title">
+											<h3>Most Viewed People</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s1.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Sooraj Mishra</h4>
+													<span>Graphic Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s2.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Vivek Yadav</h4>
+													<span>PHP Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s3.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Sunil Tiwari</h4>
+													<span>Wordpress Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s4.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Saransh Gupta</h4>
+													<span>C &amp; C++ Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s5.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Rishabh Jaiswal</h4>
+													<span>Graphic Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="{% static 'images/resources/s6.png' %}" alt="">
+												<div class="sgt-text">
+													<h4>Saransh Gupta</h4>
+													<span>PHP Developer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="view-more">
+												<a href="#" title="">View More</a>
+											</div>
+										</div><!--suggestions-list end-->
+									</div>
+								</div><!--right-sidebar end-->
+							</div>
+						</div>
+					</div><!-- main-section-data end-->
+				</div>
+			</div>
+		</main>
+{% load crispy_forms_field %}
+{% load crispy_forms_tags %}
+
+
+
+
+		<div class="chatbox-list">
+			<div class="chatbox">
+				<div class="chat-mg">
+					<a href="#" title=""><img src="{% static 'images/resources/usr-img1.png' %}" alt=""></a>
+					<span>2</span>
+				</div>
+				<div class="conversation-box">
+					<div class="con-title mg-3">
+						<div class="chat-user-info">
+							<img src="{% static 'images/resources/us-img1.png' %}" alt="">
+							<h3>John Doe <span class="status-info"></span></h3>
+						</div>
+						<div class="st-icons">
+							<a href="#" title=""><i class="la la-cog"></i></a>
+							<a href="#" title="" class="close-chat"><i class="la la-minus-square"></i></a>
+							<a href="#" title="" class="close-chat"><i class="la la-close"></i></a>
+						</div>
+					</div>
+					<div class="chat-hist mCustomScrollbar" data-mcs-theme="dark">
+						<div class="chat-msg">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+							<span>Sat, Aug 23, 1:10 PM</span>
+						</div>
+						<div class="date-nd">
+							<span>Sunday, August 24</span>
+						</div>
+						<div class="chat-msg st2">
+							<p>Cras ultricies ligula.</p>
+							<span>5 minutes ago</span>
+						</div>
+						<div class="chat-msg">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+							<span>Sat, Aug 23, 1:10 PM</span>
+						</div>
+					</div><!--chat-list end-->
+					<div class="typing-msg">
+						<form>
+							<textarea placeholder="Type a message here"></textarea>
+							<button type="submit"><i class="fa fa-send"></i></button>
+						</form>
+						<ul class="ft-options">
+							<li><a href="#" title=""><i class="la la-smile-o"></i></a></li>
+							<li><a href="#" title=""><i class="la la-camera"></i></a></li>
+							<li><a href="#" title=""><i class="fa fa-paperclip"></i></a></li>
+						</ul>
+					</div><!--typing-msg end-->
+				</div><!--chat-history end-->
+			</div>
+			<div class="chatbox">
+				<div class="chat-mg">
+					<a href="#" title=""><img src="{% static 'images/resources/usr-img2.png' %}" alt=""></a>
+				</div>
+				<div class="conversation-box">
+					<div class="con-title mg-3">
+						<div class="chat-user-info">
+							<img src="{% static 'images/resources/us-img1.png' %}" alt="">
+							<h3>John Doe <span class="status-info"></span></h3>
+						</div>
+						<div class="st-icons">
+							<a href="#" title=""><i class="la la-cog"></i></a>
+							<a href="#" title="" class="close-chat"><i class="la la-minus-square"></i></a>
+							<a href="#" title="" class="close-chat"><i class="la la-close"></i></a>
+						</div>
+					</div>
+					<div class="chat-hist mCustomScrollbar" data-mcs-theme="dark">
+						<div class="chat-msg">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+							<span>Sat, Aug 23, 1:10 PM</span>
+						</div>
+						<div class="date-nd">
+							<span>Sunday, August 24</span>
+						</div>
+						<div class="chat-msg st2">
+							<p>Cras ultricies ligula.</p>
+							<span>5 minutes ago</span>
+						</div>
+						<div class="chat-msg">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+							<span>Sat, Aug 23, 1:10 PM</span>
+						</div>
+					</div><!--chat-list end-->
+					<div class="typing-msg">
+						<form>
+							<textarea placeholder="Type a message here"></textarea>
+							<button type="submit"><i class="fa fa-send"></i></button>
+						</form>
+						<ul class="ft-options">
+							<li><a href="#" title=""><i class="la la-smile-o"></i></a></li>
+							<li><a href="#" title=""><i class="la la-camera"></i></a></li>
+							<li><a href="#" title=""><i class="fa fa-paperclip"></i></a></li>
+						</ul>
+					</div><!--typing-msg end-->
+				</div><!--chat-history end-->
+			</div>
+			<div class="chatbox">
+				<div class="chat-mg bx">
+					<a href="#" title=""><img src="{% static 'images/chat.png' %}" alt=""></a>
+					<span>2</span>
+				</div>
+				<div class="conversation-box">
+					<div class="con-title">
+						<h3>Messages</h3>
+						<a href="#" title="" class="close-chat"><i class="la la-minus-square"></i></a>
+					</div>
+					<div class="chat-list">
+						<div class="conv-list active">
+							<div class="usrr-pic">
+								<img src="{% static 'images/resources/usy1.png' %}" alt="">
+								<span class="active-status activee"></span>
+							</div>
+							<div class="usy-info">
+								<h3>John Doe</h3>
+								<span>Lorem ipsum dolor <img src="{% static 'images/smley.png' %}" alt=""></span>
+							</div>
+							<div class="ct-time">
+								<span>1:55 PM</span>
+							</div>
+							<span class="msg-numbers">2</span>
+						</div>
+						<div class="conv-list">
+							<div class="usrr-pic">
+								<img src="{% static 'images/resources/usy2.png' %}" alt="">
+							</div>
+							<div class="usy-info">
+								<h3>John Doe</h3>
+								<span>Lorem ipsum dolor <img src="{% static 'images/smley.png' %}" alt=""></span>
+							</div>
+							<div class="ct-time">
+								<span>11:39 PM</span>
+							</div>
+						</div>
+						<div class="conv-list">
+							<div class="usrr-pic">
+								<img src="{% static 'images/resources/usy3.png' %}" alt="">
+							</div>
+							<div class="usy-info">
+								<h3>John Doe</h3>
+								<span>Lorem ipsum dolor <img src="{% static 'images/smley.png' %}" alt=""></span>
+							</div>
+							<div class="ct-time">
+								<span>0.28 AM</span>
+							</div>
+						</div>
+					</div><!--chat-list end-->
+				</div><!--conversation-box end-->
+			</div>
+		</div><!--chatbox-list end-->
+
+	</div><!--theme-layout end-->
+
+
+{% endblock %}
